@@ -16,14 +16,19 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         {
             _playerView = playerView;
             _playerModel = playerModel;
-            _playerMovement = new PlayerNewInputMovement(_playerView,_playerModel.MoveSpeed,_playerModel.RotateSpeed);
+            _playerMovement = new PlayerNewInputMovement(_playerView,_playerModel);
             _playerAnimations = new PlayerAnimation(_playerView.Animator);
             
         }
 
-        public void Move()
+        public void HandleInteract()
         {
-            _playerMovement.Move();
+            _playerMovement.HandleInteract();
+        }
+
+        public void HandleMovement()
+        {
+            _playerMovement.HandleMovement();
         }
 
         public void Rotate()

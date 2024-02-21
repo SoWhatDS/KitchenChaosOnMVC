@@ -33,7 +33,8 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
         private void Update()
         {
-            _player.Move();
+            _player.HandleInteract();
+            _player.HandleMovement();
             _player.Rotate();
             _player.PlayerAnimationsPlay();
         }

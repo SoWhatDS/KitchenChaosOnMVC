@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 10
   <RotateSpeed>k__BackingField: 3
+  <CounterLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64

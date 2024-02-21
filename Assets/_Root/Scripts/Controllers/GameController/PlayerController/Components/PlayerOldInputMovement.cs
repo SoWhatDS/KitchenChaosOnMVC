@@ -6,7 +6,7 @@ using KitchenChaosMVC.Utils;
 
 namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 {
-    internal sealed class PlayerOldInputMovement : IMove
+    internal sealed class PlayerOldInputMovement 
     {
         private PlayerView _playerView;
         private float _moveSpeed;
@@ -32,7 +32,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             _rotateSpeed = rotateSpeed;
         }   
 
-        public void Move()
+        public void HandleMovement()
         {
             _moveDirection = PlayerOldInputSystemMove();
 

@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerView
       objectReference: {fileID: 0}
+    - target: {fileID: 7573713793170961702, guid: ee47c360ed98c407e8a212334817c926,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8629689625301768362, guid: ee47c360ed98c407e8a212334817c926,
         type: 3}
       propertyPath: m_Controller

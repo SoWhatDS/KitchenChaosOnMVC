@@ -6,9 +6,11 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 {
     interface IMove 
     {
-        void Move();
+        void HandleMovement();
 
         void Rotate();
+
+        void HandleInteract();
 
         bool IsWalking { get; }
     }

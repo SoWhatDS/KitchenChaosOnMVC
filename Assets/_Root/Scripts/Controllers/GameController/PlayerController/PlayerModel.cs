@@ -9,5 +9,6 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
     {
         [field: SerializeField] public float MoveSpeed { get; private set; }
         [field: SerializeField] public float RotateSpeed { get; private set; }
+        [field: SerializeField] public LayerMask CounterLayerMask { get; private set; }
     }
 }
