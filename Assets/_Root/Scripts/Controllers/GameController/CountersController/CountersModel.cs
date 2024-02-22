@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CountersModel : MonoBehaviour
+namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu(fileName = nameof(CountersModel),menuName = "Settings/ " + nameof(CountersModel))]
+    public class CountersModel : ScriptableObject
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [field: SerializeField] public ClearCountersModel ClearCountersModel;
     }
 }

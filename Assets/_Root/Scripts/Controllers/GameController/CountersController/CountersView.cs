@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CountersView : MonoBehaviour
+namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
-    // Start is called before the first frame update
-    void Start()
+    internal sealed class CountersView : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [field: SerializeField] public ClearCounterView[] ClearCountersView { get; private set; }
     }
 }

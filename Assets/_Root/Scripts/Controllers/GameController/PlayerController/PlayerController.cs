@@ -25,7 +25,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
         private PlayerView LoadView()
         {
-            GameObject prefab = ResourceLoader.LoadPrefab(GameConstantsView.PLAYERVIEW);
+            GameObject prefab = ResourceLoader.LoadPrefab(GameConstantsView.PLAYER_VIEW);
             GameObject objectView = Object.Instantiate(prefab);
             AddGameObjects(objectView);
             return ResourceLoader.GetOrAddComponent<PlayerView>(objectView);

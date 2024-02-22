@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using KitchenChaosMVC.Engine.Game.CountersController;
+using KitchenChaosMVC.Engine.Game.CountersControllers;
 using UnityEngine;
 
 namespace KitchenChaosMVC.Engine.Game.PlayerControllers
@@ -27,6 +28,8 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private float _interactDistance = 2f;
         private LayerMask _counterLayerMask;
 
+        private ClearCounterView _selectedCounter;
+
         public bool IsWalking
         {
             get => _isWalking;
@@ -49,7 +52,12 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
         private void GameInput_OnInteractionInput(object sender, System.EventArgs e)
         {
-            HandleInteract();
+            if (_selectedCounter == null)
+            {
+                return;
+            }
+
+            _selectedCounter.Interact();
         }
 
         public void HandleInteract()
@@ -66,8 +74,23 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             {
                 if (raycastHit.transform.TryGetComponent<ClearCounterView>(out ClearCounterView clearCounterView))
                 {
-                    clearCounterView.Interact();
+                    _selectedCounter = clearCounterView;
+                    _selectedCounter.IsSelectedCounter?.Invoke(true);
                 }
+                else
+                {
+                    _selectedCounter.IsSelectedCounter?.Invoke(false);
+                    _selectedCounter = null;
+                }
+            }
+            else
+            {
+                if (_selectedCounter == null)
+                {
+                    return;
+                }
+                _selectedCounter.IsSelectedCounter?.Invoke(false);
+                _selectedCounter = null;
             }
         }
 
