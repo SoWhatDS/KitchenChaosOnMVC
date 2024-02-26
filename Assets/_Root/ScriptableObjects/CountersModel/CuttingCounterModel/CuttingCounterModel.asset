@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c9d76af5e0b4c6abbded08322bf46d, type: 3}
+  m_Name: CuttingCounterModel
+  m_EditorClassIdentifier: 
+  <KitchenObjectsRecipeSOArray>k__BackingField:
+  - {fileID: 11400000, guid: 889e342813d1e4a27a4b2f2942e702cb, type: 2}
+  - {fileID: 11400000, guid: e4f20f9df2f2640b2a02f4931a3d758e, type: 2}
+  - {fileID: 11400000, guid: fdc5365cf22d14802989dadbe2ad323e, type: 2}

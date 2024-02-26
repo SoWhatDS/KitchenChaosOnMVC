@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d148aa819a73045ec80f58aec711463e, type: 3}
   m_Name: ClearCountersModel
   m_EditorClassIdentifier: 
+  <KitchenObjectSO>k__BackingField:
+  - {fileID: 11400000, guid: c8fd54503e1a04c82932fed27764900c, type: 2}
+  - {fileID: 11400000, guid: 118973d6758ea46d6adcb316437d1b56, type: 2}

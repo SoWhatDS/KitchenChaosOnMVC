@@ -41,6 +41,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
         protected override void OnDispose()
         {
+            _player.Dispose();
             UpdateManager.UnsubscribeFromUpdate(Update);
         }
     }

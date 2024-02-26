@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
-    internal sealed class SelectedCounter : MonoBehaviour
+    public sealed class SelectedCounter : MonoBehaviour
     {
         public void Show()
         {

@@ -8,6 +8,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
     internal sealed class GameInput 
     {
         public event EventHandler OnInteractionInput;
+        public event EventHandler OnInteractAlternateInput;
 
         private PlayerInputActions _playerInputActions;
 
@@ -16,6 +17,12 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             _playerInputActions = new PlayerInputActions();
             _playerInputActions.Enable();
             _playerInputActions.Player.Interact.performed += Interact_performed;
+            _playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
+        }
+
+        private void InteractAlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            OnInteractAlternateInput?.Invoke(this, EventArgs.Empty);
         }
 
         private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -30,6 +37,12 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             Vector2 inputVectorNormalized = inputVector.normalized;
 
             return inputVectorNormalized;
+        }
+
+        public void Dispose()
+        {
+            _playerInputActions.Player.Interact.performed -= Interact_performed;
+            _playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
         }
     }
 }

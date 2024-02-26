@@ -12,6 +12,8 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
         void HandleInteract();
 
+        void Dispose();
+
         bool IsWalking { get; }
     }
 }

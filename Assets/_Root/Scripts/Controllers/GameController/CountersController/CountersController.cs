@@ -11,6 +11,9 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         private CountersModel _countersModel;
 
         private ClearCountersController _clearCountersController;
+        private ContainerCounterController _containerCountersController;
+        private CuttingCounterController _cuttingCounterController;
+        private TrashCounterController _trashCounterController;
 
         internal CountersController(CountersModel countersModel)
         {
@@ -30,11 +33,18 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         private void CreateAllCountersControllers()
         {
             _clearCountersController = new ClearCountersController(_countersView.ClearCountersView,_countersModel.ClearCountersModel);
+            _containerCountersController = new ContainerCounterController(_countersView.ContainerCounterView,_countersModel.ContainerCounterModel);
+            _cuttingCounterController = new CuttingCounterController(_countersView.CuttingCounterView,_countersModel.CuttingCounterModel);
+            _trashCounterController = new TrashCounterController(_countersView.TrashCounterView);
         }
 
         protected override void OnDispose()
         {
-           
+            _clearCountersController?.Dispose();
+            _containerCountersController?.Dispose();
+            _cuttingCounterController?.Dispose();
+            _trashCounterController?.Dispose();
+            
         }
     }
 }

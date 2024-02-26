@@ -5,13 +5,19 @@ using UnityEngine;
 namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 {
 
-    internal sealed class PlayerView : MonoBehaviour
+    public sealed class PlayerView : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _holdPointForKitchenObject;
 
         public Animator Animator
         {
             get => _animator;
+        }
+
+        public Transform HoldPointForKitchenObject
+        {
+            get => _holdPointForKitchenObject;
         }
     }
 }

@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b301a533a37742a7a4ae4a4814c3dcf, type: 3}
   m_Name: CountersModel
   m_EditorClassIdentifier: 
-  ClearCountersModel: {fileID: 11400000, guid: 68fd0d3311e8d4e199f9b83d313e3504, type: 2}
+  <ClearCountersModel>k__BackingField: {fileID: 11400000, guid: 68fd0d3311e8d4e199f9b83d313e3504,
+    type: 2}
+  <ContainerCounterModel>k__BackingField: {fileID: 11400000, guid: 1b808ff68198946209e694d62614278e,
+    type: 2}
+  <CuttingCounterModel>k__BackingField: {fileID: 11400000, guid: 8af00d2b372764478b9494f3e2b0c56f,
+    type: 2}

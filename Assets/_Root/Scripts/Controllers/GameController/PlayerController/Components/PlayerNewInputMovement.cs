@@ -11,6 +11,8 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private bool _isWalking;
         private GameInput _gameInput;
         private PlayerView _playerView;
+        private PlayerModel _playerModel;
+        private Player _player;
 
         private float _moveSpeed;
         private float _rotateSpeed;
@@ -28,7 +30,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private float _interactDistance = 2f;
         private LayerMask _counterLayerMask;
 
-        private ClearCounterView _selectedCounter;
+        private BaseCounter _selectedCounter;
 
         public bool IsWalking
         {
@@ -40,14 +42,27 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             }
         }
 
-        public PlayerNewInputMovement(PlayerView playerView,PlayerModel playerModel)
+        public PlayerNewInputMovement(Player player)
         {
-            _playerView = playerView;
-            _moveSpeed = playerModel.MoveSpeed;
-            _rotateSpeed = playerModel.RotateSpeed;
-            _counterLayerMask = playerModel.CounterLayerMask;
+            _player = player;
+            _playerView = _player.GetPlayerView();
+            _playerModel = _player.GetPlayerModel();
+            _moveSpeed = _playerModel.MoveSpeed;
+            _rotateSpeed = _playerModel.RotateSpeed;
+            _counterLayerMask = _playerModel.CounterLayerMask;
             _gameInput = new GameInput();
             _gameInput.OnInteractionInput += GameInput_OnInteractionInput;
+            _gameInput.OnInteractAlternateInput += GameInput_OnInteractAlternateInput;
+        }
+
+        private void GameInput_OnInteractAlternateInput(object sender, EventArgs e)
+        {
+            if (_selectedCounter == null)
+            {
+                return;
+            }
+
+            _selectedCounter.OnInteractAlternate?.Invoke(_player);
         }
 
         private void GameInput_OnInteractionInput(object sender, System.EventArgs e)
@@ -57,7 +72,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
                 return;
             }
 
-            _selectedCounter.Interact();
+            _selectedCounter.OnInteract?.Invoke(_player);
         }
 
         public void HandleInteract()
@@ -72,14 +87,14 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
             if (Physics.Raycast(_playerView.transform.position, _lastDirection, out RaycastHit raycastHit, _interactDistance, _counterLayerMask))
             {
-                if (raycastHit.transform.TryGetComponent<ClearCounterView>(out ClearCounterView clearCounterView))
+                if (raycastHit.transform.TryGetComponent<IBaseCounter>(out IBaseCounter baseCounter))
                 {
-                    _selectedCounter = clearCounterView;
-                    _selectedCounter.IsSelectedCounter?.Invoke(true);
+                    _selectedCounter = baseCounter.BaseCounter;
+                    _selectedCounter.IsSelected?.Invoke(true);
                 }
                 else
                 {
-                    _selectedCounter.IsSelectedCounter?.Invoke(false);
+                    _selectedCounter.IsSelected?.Invoke(false);
                     _selectedCounter = null;
                 }
             }
@@ -89,7 +104,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
                 {
                     return;
                 }
-                _selectedCounter.IsSelectedCounter?.Invoke(false);
+                _selectedCounter.IsSelected?.Invoke(false);
                 _selectedCounter = null;
             }
         }
@@ -106,7 +121,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             if (!_canMove)
             {
                 _moveDirX = new Vector3(_moveDirection.x, 0, 0).normalized;
-                _canMove = !Physics.CapsuleCast(_playerView.transform.position,
+                _canMove = _moveDirection.x != 0 && !Physics.CapsuleCast(_playerView.transform.position,
                     _playerView.transform.position + Vector3.up * _playerHeight, _playerRadius, _moveDirection, _moveDistance);
 
                 if (_canMove)
@@ -116,7 +131,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
                 else
                 {
                     _moveDirZ = new Vector3(0, 0, _moveDirection.y).normalized;
-                    _canMove = !Physics.CapsuleCast(_playerView.transform.position,
+                    _canMove = _moveDirection.z != 0 && !Physics.CapsuleCast(_playerView.transform.position,
                         _playerView.transform.position + Vector3.up * _playerHeight, _playerRadius, _moveDirection, _moveDistance);
 
                     if (_canMove)
@@ -137,6 +152,13 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         public void Rotate()
         {
             _playerView.transform.forward = Vector3.Slerp(_playerView.transform.forward, _moveDirection, Time.deltaTime * _rotateSpeed);
+        }
+
+        public void Dispose()
+        {
+            _gameInput.Dispose();
+            _gameInput.OnInteractionInput -= GameInput_OnInteractionInput;
+            _gameInput.OnInteractAlternateInput -= GameInput_OnInteractAlternateInput;
         }
     }
 }

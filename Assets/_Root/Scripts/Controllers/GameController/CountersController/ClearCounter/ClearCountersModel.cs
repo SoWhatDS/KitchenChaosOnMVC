@@ -7,6 +7,6 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
     [CreateAssetMenu(fileName = nameof(ClearCountersModel),menuName = "Settings/ " + nameof(ClearCountersModel))]
     public class ClearCountersModel : ScriptableObject
     {
-
+        [field: SerializeField] public List<KitchenObjectSO> KitchenObjectSO { get; private set;}
     }
 }

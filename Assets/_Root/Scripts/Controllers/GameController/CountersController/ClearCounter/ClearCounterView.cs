@@ -1,19 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using KitchenChaosMVC.Engine.Game.PlayerControllers;
 using UnityEngine;
 
 namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
-    internal sealed class ClearCounterView : MonoBehaviour
-    {
-        public Action<bool> IsSelectedCounter;
+    internal sealed class ClearCounterView : MonoBehaviour,IBaseCounter
+    { 
+        [field: SerializeField] public SelectedCounter SelectedVisualPrefab { get; private set; }
+        [field: SerializeField] public Transform CounterTopPoint { get; private set; }
 
-        [field: SerializeField] public SelectedCounter SelectedVisualPrefab { get; private set;}
+        public BaseCounter BaseCounter => _baseCounter;
 
-        public void Interact()
+        private BaseCounter _baseCounter;
+
+        public void Init(BaseCounter baseCounter)
         {
-            Debug.Log("Interact counter");
+            _baseCounter = baseCounter;
         }
     }
 }
