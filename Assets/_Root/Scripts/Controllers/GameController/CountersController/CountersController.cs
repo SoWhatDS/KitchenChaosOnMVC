@@ -14,6 +14,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         private ContainerCounterController _containerCountersController;
         private CuttingCounterController _cuttingCounterController;
         private TrashCounterController _trashCounterController;
+        private StoveCounterController _stoveCounterController;
 
         internal CountersController(CountersModel countersModel)
         {
@@ -36,6 +37,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             _containerCountersController = new ContainerCounterController(_countersView.ContainerCounterView,_countersModel.ContainerCounterModel);
             _cuttingCounterController = new CuttingCounterController(_countersView.CuttingCounterView,_countersModel.CuttingCounterModel);
             _trashCounterController = new TrashCounterController(_countersView.TrashCounterView);
+            _stoveCounterController = new StoveCounterController(_countersView.StoveCounterViews,_countersModel.StoveCounterModel);
         }
 
         protected override void OnDispose()
@@ -44,6 +46,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             _containerCountersController?.Dispose();
             _cuttingCounterController?.Dispose();
             _trashCounterController?.Dispose();
+            _stoveCounterController?.Dispose();
             
         }
     }

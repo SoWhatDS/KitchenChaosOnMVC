@@ -10,5 +10,6 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         [field: SerializeField] public ClearCountersModel ClearCountersModel { get; private set; }
         [field: SerializeField] public ContainerCounterModel ContainerCounterModel { get; private set; }
         [field: SerializeField] public CuttingCounterModel CuttingCounterModel { get; private set; }
+        [field: SerializeField] public StoveCounterModel StoveCounterModel { get; private set; } 
     }
 }

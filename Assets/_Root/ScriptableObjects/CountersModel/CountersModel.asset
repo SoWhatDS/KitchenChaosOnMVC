@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 2}
   <CuttingCounterModel>k__BackingField: {fileID: 11400000, guid: 8af00d2b372764478b9494f3e2b0c56f,
     type: 2}
+  <StoveCounterModel>k__BackingField: {fileID: 11400000, guid: 3d630a4c7010f4197bc596b98b009177,
+    type: 2}
