@@ -15,3 +15,5 @@ MonoBehaviour:
   <KitchenObjectSO>k__BackingField:
   - {fileID: 11400000, guid: c8fd54503e1a04c82932fed27764900c, type: 2}
   - {fileID: 11400000, guid: 118973d6758ea46d6adcb316437d1b56, type: 2}
+  <AudioManagerModel>k__BackingField: {fileID: 11400000, guid: f75bdbed56ae04158a0f677f5d55f894,
+    type: 2}

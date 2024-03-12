@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using KitchenChaosMVC.Engine.Game.AudioController;
 using KitchenChaosMVC.Engine.Game.CountersControllers;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private GameInput _gameInput;
         private PlayerView _playerView;
         private PlayerModel _playerModel;
+        private AudioManagerModel _audioManagerModel;
         private Player _player;
 
         private float _moveSpeed;
@@ -30,6 +32,8 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private float _interactDistance = 2f;
         private LayerMask _counterLayerMask;
 
+        private float _moveAudioTimer = 0.1f;
+
         private BaseCounter _selectedCounter;
 
         public bool IsWalking
@@ -47,6 +51,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             _player = player;
             _playerView = _player.GetPlayerView();
             _playerModel = _player.GetPlayerModel();
+            _audioManagerModel = _playerModel.AudioManagerModel;
             _moveSpeed = _playerModel.MoveSpeed;
             _rotateSpeed = _playerModel.RotateSpeed;
             _counterLayerMask = _playerModel.CounterLayerMask;
@@ -147,11 +152,27 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             }
 
             _isWalking = _moveDirection != Vector3.zero;
+
+            if (_isWalking)
+            {
+                AudioPlayTimer();
+            }
         }
 
         public void Rotate()
         {
             _playerView.transform.forward = Vector3.Slerp(_playerView.transform.forward, _moveDirection, Time.deltaTime * _rotateSpeed);
+        }
+
+        private void AudioPlayTimer()
+        {
+            _moveAudioTimer -= Time.deltaTime;
+
+            if (_moveAudioTimer < 0)
+            {
+                _moveAudioTimer = 0.1f;
+                _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.FootStep, _playerView.transform.position);
+            }
         }
 
         public void Dispose()

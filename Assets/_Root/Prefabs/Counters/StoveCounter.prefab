@@ -544,6 +544,7 @@ MonoBehaviour:
   <SelectedCounter>k__BackingField: {fileID: 6074991563530993174}
   <ParticlesPrefab>k__BackingField: {fileID: 3762315120646223722}
   <VisualEffectPrefab>k__BackingField: {fileID: 8969226586331554019}
+  <BarProgressUI>k__BackingField: {fileID: 4360770182849364734}
 --- !u!4 &7331450598979210072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1423640339876384307, guid: 1d38675228a58488dad432254c22f29a,

@@ -10,6 +10,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         [field: SerializeField] public SelectedCounter SelectedCounter { get; private set; }
         [field: SerializeField] public GameObject ParticlesPrefab { get; private set; }
         [field: SerializeField] public GameObject VisualEffectPrefab { get; private set; }
+        [field: SerializeField] public BarProgressUI BarProgressUI { get; private set; }
 
         private BaseCounter _baseCounter;
 

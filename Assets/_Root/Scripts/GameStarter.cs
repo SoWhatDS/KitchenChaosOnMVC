@@ -8,8 +8,8 @@ namespace KitchenChaosMVC.Engine
     public class GameStarter : MonoBehaviour
     {
         [SerializeField] private SettingsContainer _settingsContainer;
-        //change for Main Menu
-        private const GameState InitialGameState = GameState.StartGame;
+
+        private const GameState InitialGameState = GameState.MainMenu;
 
         private MainController _mainController;
 

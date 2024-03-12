@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using KitchenChaosMVC.Engine.Game.PlayerControllers;
 using UnityEngine;
+using KitchenChaosMVC.Engine.Game.AudioController;
 
 namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
@@ -9,11 +10,14 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
     {
         private ClearCounterView _clearCounterView;
         private ClearCountersModel _clearCounterModel;
+        private AudioManagerModel _audioManagerModel;
+
 
         internal ClearCounter(ClearCounterView clearCounterView,ClearCountersModel clearCounterModel)
         {
             _clearCounterView = clearCounterView;
             _clearCounterModel = clearCounterModel;
+            _audioManagerModel = _clearCounterModel.AudioManagerModel;
 
             _clearCounterView.Init(this);
 
@@ -33,6 +37,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                 if (player.HasKitchenObjectInParent())
                 {
                     player.GetKitchenObjectFromParent().SetKitchenObjectInParent(this);
+                    _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectDrop,_clearCounterView.transform.position);
                 }
                 else
                 {
@@ -43,11 +48,30 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             {
                 if (player.HasKitchenObjectInParent())
                 {
-                    //not set kitchenObject to player because player has kitchenObject!!!
+                    if (player.GetKitchenObjectFromParent().TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject))
+                    {
+                        if (plateKitchenObject.TryAddIngredients(GetKitchenObjectFromParent().GetKitchenObjectSO()))
+                        {
+                            GetKitchenObjectFromParent().DestroySelf();
+                            _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp, plateKitchenObject.transform.position);
+                        }
+                    }
+                    else
+                    {
+                        if (GetKitchenObjectFromParent().TryGetPlateKitchenObject(out plateKitchenObject))
+                        {
+                            if (plateKitchenObject.TryAddIngredients(player.GetKitchenObjectFromParent().GetKitchenObjectSO()))
+                            {
+                                _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp,plateKitchenObject.transform.position);
+                                player.GetKitchenObjectFromParent().DestroySelf();
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     GetKitchenObjectFromParent().SetKitchenObjectInParent(player);
+                    _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp, _clearCounterView.transform.position);
                 }
             }
         }

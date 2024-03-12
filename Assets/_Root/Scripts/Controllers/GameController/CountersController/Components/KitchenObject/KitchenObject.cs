@@ -40,6 +40,20 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             return _kitchenObjectParent;
         }
 
+        public bool TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject)
+        {
+            if (this is PlateKitchenObject)
+            {
+                plateKitchenObject = this as PlateKitchenObject;
+                return true;
+            }
+            else
+            {
+                plateKitchenObject = null;
+                return false;
+            }
+        }
+
         public void DestroySelf()
         {
             _kitchenObjectParent.ClearKitchenObjectInParent();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenChaosMVC.Engine.Game.AudioController;
 
 namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
@@ -9,5 +10,6 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
     {
         [field: SerializeField] public KitchenObjectFryingRecipeSO[] KitchenObjectFryingRecipeSOArray { get; private set; }
         [field: SerializeField] public KitchenObjectBurnedRecipeSO[] KitchenObjectBurnedRecipeSOArray { get; private set; }
+        [field: SerializeField] public AudioManagerModel AudioManagerModel { get; private set; }
     }
 }

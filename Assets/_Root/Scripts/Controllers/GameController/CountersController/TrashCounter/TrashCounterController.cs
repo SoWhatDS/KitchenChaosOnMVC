@@ -7,12 +7,14 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
     public class TrashCounterController : BaseController
     {
         private TrashCounterView[] _trashCountersViewArray;
+        private TrashCounterModel _trashCounterModel;
 
         private List<TrashCounter> _trashCountersList;
 
-        public TrashCounterController(TrashCounterView[] trashCounterViewsArray)
+        public TrashCounterController(TrashCounterView[] trashCounterViewsArray, TrashCounterModel trashCounterModel)
         {
             _trashCountersViewArray = trashCounterViewsArray;
+            _trashCounterModel = trashCounterModel;
             _trashCountersList = new List<TrashCounter>();
             Initialize();
         }
@@ -21,7 +23,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         {
             for (int i = 0; i < _trashCountersViewArray.Length; i++)
             {
-                TrashCounter trashCounter = new TrashCounter(_trashCountersViewArray[i]);
+                TrashCounter trashCounter = new TrashCounter(_trashCountersViewArray[i],_trashCounterModel);
                 _trashCountersList.Add(trashCounter);
             }
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using KitchenChaosMVC.Engine.Game.PlayerControllers;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using KitchenChaosMVC.Engine.Game.AudioController;
 
 namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
@@ -14,6 +15,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         private CuttingCounterView _cuttingCounterView;
         private CuttingCounterModel _cuttingCounterModel;
         private KitchenObjectsRecipeSO[] _kitchenObjectsRecipeSOArray;
+        private AudioManagerModel _audioManagerModel;
 
         private float _cuttingProgress;
         private bool _isOutputKitchenObjectInstantiate;
@@ -22,6 +24,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         {
             _cuttingCounterView = cuttingCounterView;
             _cuttingCounterModel = cuttingCounterModel;
+            _audioManagerModel = _cuttingCounterModel.AudioManagerModel;
             _kitchenObjectsRecipeSOArray = cuttingCounterModel.KitchenObjectsRecipeSOArray;
 
             CounterTopPoint = _cuttingCounterView.CounterTopPoint;
@@ -58,10 +61,18 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                 if (!player.HasKitchenObjectInParent())
                 {
                     GetKitchenObjectFromParent().SetKitchenObjectInParent(player);
+                    _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp, _cuttingCounterView.transform.position);
                 }
                 else
                 {
-                    //not have kitchen object in counter!!!
+                    if (player.GetKitchenObjectFromParent().TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject))
+                    {
+                        if (plateKitchenObject.TryAddIngredients(GetKitchenObjectFromParent().GetKitchenObjectSO()))
+                        {
+                            _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp, _cuttingCounterView.transform.position);
+                            GetKitchenObjectFromParent().DestroySelf();
+                        }
+                    }
                 }
             }
         }
@@ -71,7 +82,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             if (HasKitchenObjectInParent() && HasKitchenObjectSOInRecipe(GetKitchenObjectFromParent().GetKitchenObjectSO()))
             {
                 _cuttingProgress++;
-
+                _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.Chop, _cuttingCounterView.transform.position);
                 KitchenObjectsRecipeSO kitchenObjectsRecipeSO = GetKitchenObjectRecipeSOFromInput(GetKitchenObjectFromParent().GetKitchenObjectSO());
 
                 float cuttingProgressNormalized = (float)_cuttingProgress / kitchenObjectsRecipeSO.CuttingProgressMax;
@@ -83,12 +94,13 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                     {
                         _isOutputKitchenObjectInstantiate = true;
                         KitchenObjectSO kitchenObjectOutput = GetOutputFromInput(GetKitchenObjectFromParent().GetKitchenObjectSO());
-                        Debug.Log(kitchenObjectOutput);
+
                         GetKitchenObjectFromParent().DestroySelf();
 
                         //PoolObject!!!!
                         Transform kitchenObjectTransform = Object.Instantiate(kitchenObjectOutput.Prefab);
                         kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectInParent(this);
+                        _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectDrop, _cuttingCounterView.transform.position);
                     }
                     
                 }

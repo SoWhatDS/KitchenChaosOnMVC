@@ -16,3 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24950fc8b37ec4b6f957e2ae4fdb3c8b, type: 2}
   <KitchenObjectBurnedRecipeSOArray>k__BackingField:
   - {fileID: 11400000, guid: 13b49b10af6784c74846a3006aedc236, type: 2}
+  <AudioManagerModel>k__BackingField: {fileID: 11400000, guid: f75bdbed56ae04158a0f677f5d55f894,
+    type: 2}

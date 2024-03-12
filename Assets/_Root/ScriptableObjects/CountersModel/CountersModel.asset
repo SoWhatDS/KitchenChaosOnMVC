@@ -20,3 +20,9 @@ MonoBehaviour:
     type: 2}
   <StoveCounterModel>k__BackingField: {fileID: 11400000, guid: 3d630a4c7010f4197bc596b98b009177,
     type: 2}
+  <PlateCounterModel>k__BackingField: {fileID: 11400000, guid: 8aba9911fb97b44b68de61f6ebffbfca,
+    type: 2}
+  <DeliveryCounterModel>k__BackingField: {fileID: 11400000, guid: ed7da917825204910ac4427571f0f56e,
+    type: 2}
+  <TrashCounterModel>k__BackingField: {fileID: 11400000, guid: b1c5d6725821e4003be7e52bb20515d5,
+    type: 2}

@@ -9,6 +9,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
     {
         public event EventHandler OnInteractionInput;
         public event EventHandler OnInteractAlternateInput;
+        
 
         private PlayerInputActions _playerInputActions;
 
@@ -18,6 +19,12 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             _playerInputActions.Enable();
             _playerInputActions.Player.Interact.performed += Interact_performed;
             _playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
+            _playerInputActions.Player.Pause.performed += Pause_performed;
+        }
+
+        private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            
         }
 
         private void InteractAlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

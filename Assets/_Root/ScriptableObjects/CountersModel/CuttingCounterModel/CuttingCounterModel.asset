@@ -16,3 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 889e342813d1e4a27a4b2f2942e702cb, type: 2}
   - {fileID: 11400000, guid: e4f20f9df2f2640b2a02f4931a3d758e, type: 2}
   - {fileID: 11400000, guid: fdc5365cf22d14802989dadbe2ad323e, type: 2}
+  <AudioManagerModel>k__BackingField: {fileID: 11400000, guid: f75bdbed56ae04158a0f677f5d55f894,
+    type: 2}

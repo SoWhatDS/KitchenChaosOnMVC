@@ -6,7 +6,10 @@ namespace KitchenChaosMVC.Utils
     {
         QuitGame,
         MainMenu,
+        Loading,
         StartGame,
+        CountDown,
+        GameOver,
         PauseGame
     }
 }

@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using KitchenChaosMVC.Engine.Game.PlayerControllers;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using KitchenChaosMVC.Engine.Game.AudioController;
 
 namespace KitchenChaosMVC.Engine.Game.CountersControllers
 {
     public class StoveCounter : BaseCounter
     {
         private Action<State> OnStateChanged;
+        private Action<float> OnProgressChanged;
 
         private enum State
         {
@@ -23,6 +25,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
 
         private StoveCounterView _stoveCounterView;
         private StoveCounterModel _stoveCounterModel;
+        private AudioManagerModel _audioManagerModel;
 
         private KitchenObjectFryingRecipeSO[] _kitchenObjectFryingRecipeSOArray;
         private KitchenObjectBurnedRecipeSO[] _kitchenObjectBurnedRecipeSOArray;
@@ -34,19 +37,22 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         private float _burnedTimer;
         private bool _isFrying;
 
+        private float _progressChangedTime;
+
 
         public StoveCounter(StoveCounterView stoveCounterView,StoveCounterModel stoveCounterModel)
         {
             _stoveCounterView = stoveCounterView;
             _stoveCounterModel = stoveCounterModel;
+            _audioManagerModel = _stoveCounterModel.AudioManagerModel;
 
             _kitchenObjectFryingRecipeSOArray = _stoveCounterModel.KitchenObjectFryingRecipeSOArray;
             _kitchenObjectBurnedRecipeSOArray = _stoveCounterModel.KitchenObjectBurnedRecipeSOArray;
 
             _stoveCounterView.Init(this);
             _stoveCounterView.SelectedCounter.Hide();
+            _stoveCounterView.BarProgressUI.Hide();
             
-
             SelectedCounter = _stoveCounterView.SelectedCounter;
             CounterTopPoint = _stoveCounterView.CounterTopPoint;
 
@@ -55,7 +61,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             OnInteract += Interact;
             IsSelected += ShowSelectedVisualEffect;
             OnStateChanged += ShowVisualEffectAndParticles;
-            
+            OnProgressChanged += _stoveCounterView.BarProgressUI.ShowVisualBarProgressUI;
         }
 
         public void FriyngWithTimerInUpdate()
@@ -65,12 +71,12 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             {
                 switch (_state)
                 {
-                    case State.Idle:                    
+                    case State.Idle:
                         break;
                     case State.Frying:
-
                         _fryingTimer += Time.deltaTime;                     
                         _kitchenObjectFryingRecipeSO = GetKitchenObjectFryingRecipeSOFromInput(GetKitchenObjectFromParent().GetKitchenObjectSO());
+                        UpdateVisualBarProgress(_fryingTimer,_kitchenObjectFryingRecipeSO.FryingTimeMax);
 
                         if (_fryingTimer >= _kitchenObjectFryingRecipeSO.FryingTimeMax)
                         {
@@ -81,15 +87,15 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                             //PoolObject
                             Transform kitchenObjectTransform = Object.Instantiate(_kitchenObjectFryingRecipeSO.Output.Prefab);
                             kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectInParent(this);
-                            _state = State.Fried;
-                            OnStateChanged?.Invoke(_state);
+                            _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.StoveSizze,_stoveCounterView.transform.position);
+                            ChangeState(State.Fried);
                         }
                         break;
                     case State.Fried:
-
                         _burnedTimer += Time.deltaTime;
-
                         _kitchenObjectBurnedRecipeSO = GetKitchenObjectBurnedRecipeSOFromInput(GetKitchenObjectFromParent().GetKitchenObjectSO());
+
+                        UpdateVisualBarProgress(_burnedTimer,_kitchenObjectBurnedRecipeSO.BurnedTimeMax);
 
                         if (_burnedTimer >= _kitchenObjectBurnedRecipeSO.BurnedTimeMax)
                         {
@@ -100,8 +106,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                             //PoolObject
                             Transform kitchenObjectTransform = Object.Instantiate(_kitchenObjectBurnedRecipeSO.Output.Prefab);
                             kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectInParent(this);
-                            _state = State.Burned;
-                            OnStateChanged?.Invoke(_state);
+                            ChangeState(State.Burned);
                         }
                         break;
                     case State.Burned:
@@ -120,8 +125,8 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                 {
                     player.GetKitchenObjectFromParent().SetKitchenObjectInParent(this);
                     _isFrying = true;
-                    _state = State.Frying;
-                    OnStateChanged?.Invoke(_state);
+                    _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.StoveSizze, _stoveCounterView.transform.position);
+                    ChangeState(State.Frying);
                 }
                 else
                 {
@@ -134,12 +139,26 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
                 {
                     GetKitchenObjectFromParent().SetKitchenObjectInParent(player);
                     _isFrying = false;
-                    _state = State.Idle;
-                    OnStateChanged?.Invoke(_state);
+                    _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp, _stoveCounterView.transform.position);
+                    ResetTimer();
+                    ChangeState(State.Idle);
+                   
                 }
                 else
                 {
-                    //not have kitchen object in counter!!!
+                    if (player.GetKitchenObjectFromParent().TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject))
+                    {
+                        if (plateKitchenObject.TryAddIngredients(GetKitchenObjectFromParent().GetKitchenObjectSO()))
+                        {
+                            _audioManagerModel.OnPlaySound?.Invoke(_audioManagerModel.ObjectPickUp, _stoveCounterView.transform.position);
+                            GetKitchenObjectFromParent().DestroySelf();
+                        }
+                    }
+
+                    _isFrying = false;
+
+                    ResetTimer();
+                    ChangeState(State.Idle);
                 }
             }
         }
@@ -190,7 +209,6 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
 
         private void ShowVisualEffectAndParticles(State state)
         {
-            Debug.Log(_state);
             if (state == State.Fried || state == State.Frying)
             {
                 _stoveCounterView.VisualEffectPrefab.SetActive(_isFrying);
@@ -203,11 +221,31 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
             }
         }
 
+        private void UpdateVisualBarProgress(float timer,float timeMax)
+        {
+            _progressChangedTime = timer / timeMax;
+            OnProgressChanged?.Invoke(_progressChangedTime);
+        }
+
+        private void ResetTimer()
+        {
+            _fryingTimer = 0f;
+            _burnedTimer = 0f;
+            _stoveCounterView.BarProgressUI.Hide();
+        }
+
+        private void ChangeState(State state)
+        {
+            _state = state;
+            OnStateChanged?.Invoke(_state);
+        }
+
         public void Dispose()
         {
             OnInteract -= Interact;
             IsSelected -= ShowSelectedVisualEffect;
             OnStateChanged -= ShowVisualEffectAndParticles;
+            OnProgressChanged -= _stoveCounterView.BarProgressUI.ShowVisualBarProgressUI;
         }
     }
 }

@@ -11,5 +11,7 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         [field: SerializeField] public CuttingCounterView[] CuttingCounterView { get; private set; }
         [field: SerializeField] public TrashCounterView[] TrashCounterView { get; private set; }
         [field: SerializeField] public StoveCounterView[] StoveCounterViews { get; private set; }
+        [field: SerializeField] public PlateCounterView[] PlateCounterView { get; private set; }
+        [field: SerializeField] public DeliveryCounterView[] DeliveryCounterView { get; private set; }
     }
 }

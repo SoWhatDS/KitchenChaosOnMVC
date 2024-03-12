@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00827b1b32d0456ea8c1ce058127e3d, type: 3}
   m_Name: ContainerCounterModel
   m_EditorClassIdentifier: 
+  <AudioManagerModel>k__BackingField: {fileID: 11400000, guid: f75bdbed56ae04158a0f677f5d55f894,
+    type: 2}

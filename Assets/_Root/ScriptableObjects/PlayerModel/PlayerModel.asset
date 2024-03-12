@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PlayerModel
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 10
-  <RotateSpeed>k__BackingField: 3
+  <RotateSpeed>k__BackingField: 7
   <CounterLayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
+  <AudioManagerModel>k__BackingField: {fileID: 11400000, guid: f75bdbed56ae04158a0f677f5d55f894,
+    type: 2}

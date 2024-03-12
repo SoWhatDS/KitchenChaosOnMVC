@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd9854022c7a49bc9dc9e890098fa25, type: 3}
+  m_Name: _AudioManagerModel
+  m_EditorClassIdentifier: 
+  <Chop>k__BackingField: {fileID: 11400000, guid: fac4bd88ba6d24ea2a5b2b84605b07e6,
+    type: 2}
+  <DeliveryFail>k__BackingField: {fileID: 11400000, guid: 536884388c0f443aba0e3149f9ea7d97,
+    type: 2}
+  <DeliverySuccess>k__BackingField: {fileID: 11400000, guid: 86a7f49ce747f439bacfb543f18f3792,
+    type: 2}
+  <FootStep>k__BackingField: {fileID: 11400000, guid: e3d42147ec68c48d580a0d08e6e270c7,
+    type: 2}
+  <ObjectDrop>k__BackingField: {fileID: 11400000, guid: ffb762625eb984464be725ff29db8c22,
+    type: 2}
+  <ObjectPickUp>k__BackingField: {fileID: 11400000, guid: 5aa6e327acd3f4458940530df519eecb,
+    type: 2}
+  <StoveSizze>k__BackingField: {fileID: 11400000, guid: 5815c1a8f49f94ab4b91b924ca22b925,
+    type: 2}
+  <Trash>k__BackingField: {fileID: 11400000, guid: 03f80a2cc090247e39282f255a788c6d,
+    type: 2}
+  <Warning>k__BackingField: {fileID: 11400000, guid: 2863c2cf997294c9a9398dd82295b0a8,
+    type: 2}
+  <Volume>k__BackingField: 0.5
