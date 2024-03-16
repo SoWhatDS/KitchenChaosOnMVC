@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DeliveryManagerModel>k__BackingField: {fileID: 11400000, guid: 7d4dbd4984c7d4bdb9c8d07180ecb7a3,
     type: 2}
+  <CountDownUIModel>k__BackingField: {fileID: 11400000, guid: 5003d91b9f65049859a3388e4b1089a6,
+    type: 2}
+  <GameOverUIModel>k__BackingField: {fileID: 11400000, guid: 5082ca6b7a4454157b73b28f88c25d4b,
+    type: 2}

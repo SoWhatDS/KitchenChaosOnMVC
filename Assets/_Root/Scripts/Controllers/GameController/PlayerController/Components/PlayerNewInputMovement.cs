@@ -46,9 +46,10 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
             }
         }
 
-        public PlayerNewInputMovement(Player player)
+        public PlayerNewInputMovement(Player player,GameInput gameInput)
         {
             _player = player;
+            _gameInput = gameInput;
             _playerView = _player.GetPlayerView();
             _playerModel = _player.GetPlayerModel();
             _audioManagerModel = _playerModel.AudioManagerModel;

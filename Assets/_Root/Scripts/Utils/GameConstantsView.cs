@@ -11,5 +11,7 @@ namespace KitchenChaosMVC.Utils
         public const string MAINMENU_VIEW = "MainMenu";
         public const string GAME_VIEW = "Game";
         public const string LOADING_VIEW = "LoadingMenu";
+        public const string PAUSE_VIEW = "PauseUI";
+
     }
 }

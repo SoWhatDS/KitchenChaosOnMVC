@@ -37,12 +37,25 @@ namespace KitchenChaosMVC.Engine.Game.CountersControllers
         private void CreateAllCountersControllers()
         {
             _clearCountersController = new ClearCountersController(_countersView.ClearCountersView,_countersModel.ClearCountersModel);
+            AddControllers(_clearCountersController);
+
             _containerCountersController = new ContainerCounterController(_countersView.ContainerCounterView,_countersModel.ContainerCounterModel);
+            AddControllers(_containerCountersController);
+
             _cuttingCounterController = new CuttingCounterController(_countersView.CuttingCounterView,_countersModel.CuttingCounterModel);
+            AddControllers(_cuttingCounterController);
+
             _trashCounterController = new TrashCounterController(_countersView.TrashCounterView,_countersModel.TrashCounterModel);
+            AddControllers(_trashCounterController);
+
             _stoveCounterController = new StoveCounterController(_countersView.StoveCounterViews,_countersModel.StoveCounterModel);
+            AddControllers(_stoveCounterController);
+
             _plateCounterController = new PlateCounterController(_countersView.PlateCounterView, _countersModel.PlateCounterModel);
+            AddControllers(_plateCounterController);
+
             _deliveryCounterController = new DeliveryCounterController(_countersView.DeliveryCounterView,_countersModel.DeliveryCounterModel);
+            AddControllers(_deliveryCounterController);
         }
 
         protected override void OnDispose()

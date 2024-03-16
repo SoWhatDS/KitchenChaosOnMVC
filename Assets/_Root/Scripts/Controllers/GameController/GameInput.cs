@@ -9,6 +9,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
     {
         public event EventHandler OnInteractionInput;
         public event EventHandler OnInteractAlternateInput;
+        public event EventHandler OnPauseInteract;
         
 
         private PlayerInputActions _playerInputActions;
@@ -24,7 +25,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
 
         private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            
+            OnPauseInteract?.Invoke(this,EventArgs.Empty);
         }
 
         private void InteractAlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -50,6 +51,7 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         {
             _playerInputActions.Player.Interact.performed -= Interact_performed;
             _playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
+            _playerInputActions.Player.Pause.performed -= Pause_performed;
         }
     }
 }

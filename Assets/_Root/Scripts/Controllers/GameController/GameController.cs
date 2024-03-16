@@ -17,10 +17,13 @@ namespace KitchenChaosMVC.Engine.Game
         private SettingsContainer _settingsContainer;
         private GameView _gameView;
         private GameModel _gameModel;
+        private GameInput _gameInput;
+
         private PlayerController _playerController;
         private CountersController _countersController;
         private UIControllerInGame _uiControllerInGame;
         private AudioManagerController _audioManagerController;
+        private PauseGameController _gamePauseController;
 
         private bool _isGameStart;
         private float _timerGameOver;
@@ -54,9 +57,19 @@ namespace KitchenChaosMVC.Engine.Game
 
         private void CreateAllControllers()
         {
+            _gameInput = new GameInput();
+
             _countersController = new CountersController(_settingsContainer.CountersModel);
+            AddControllers(_countersController);
+
             _uiControllerInGame = new UIControllerInGame(_settingsContainer.UIControllerModel);
+            AddControllers(_uiControllerInGame);
+
             _audioManagerController = new AudioManagerController(_settingsContainer.AudioManagerModel);
+            AddControllers(_audioManagerController);
+
+            _gamePauseController = new PauseGameController(_profileGame,_gameInput);
+            AddControllers(_gamePauseController);
         }
 
         private void CountDownTimer()
@@ -72,7 +85,7 @@ namespace KitchenChaosMVC.Engine.Game
             if (_gameModel.CountDownTimer < 0f)
             {
                 _settingsContainer.UIControllerModel.CountDownUIModel.OnStartPlaying?.Invoke();
-                _playerController = new PlayerController(_settingsContainer.PlayerModel);
+                _playerController = new PlayerController(_settingsContainer.PlayerModel,_gameInput);
                 _isGameStart = true;
             }
         }
@@ -101,6 +114,7 @@ namespace KitchenChaosMVC.Engine.Game
             _countersController?.Dispose();
             _uiControllerInGame?.Dispose();
             _audioManagerController?.Dispose();
+            _gamePauseController?.Dispose();
             
         }
 

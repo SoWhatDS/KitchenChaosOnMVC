@@ -13,13 +13,12 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private PlayerModel _playerModel;
         private Player _player;
 
-        public PlayerController(PlayerModel playerModel)
+        public PlayerController(PlayerModel playerModel,GameInput gameInput)
         {
             _playerView = LoadView();
             _playerModel = playerModel;
-
-            _player = new Player(_playerView,_playerModel);
-
+            _player = new Player(_playerView,_playerModel,gameInput);
+            
             UpdateManager.SubscribeToUpdate(Update);
         }
 

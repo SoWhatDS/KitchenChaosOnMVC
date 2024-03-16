@@ -15,11 +15,11 @@ namespace KitchenChaosMVC.Engine.Game.PlayerControllers
         private KitchenObject _kitchenObject;
         
 
-        public Player(PlayerView playerView,PlayerModel playerModel)
+        internal Player(PlayerView playerView,PlayerModel playerModel,GameInput gameInput)
         {
             _playerView = playerView;
             _playerModel = playerModel;
-            _playerMovement = new PlayerNewInputMovement(this);
+            _playerMovement = new PlayerNewInputMovement(this,gameInput);
             _playerAnimations = new PlayerAnimation(_playerView.Animator);
             
         }

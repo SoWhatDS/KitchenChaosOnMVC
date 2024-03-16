@@ -20,3 +20,5 @@ MonoBehaviour:
     type: 2}
   <AudioManagerModel>k__BackingField: {fileID: 11400000, guid: f75bdbed56ae04158a0f677f5d55f894,
     type: 2}
+  <GameOverUIModel>k__BackingField: {fileID: 11400000, guid: 5082ca6b7a4454157b73b28f88c25d4b,
+    type: 2}

@@ -207,6 +207,16 @@ PrefabInstance:
       propertyPath: _clockImage
       value: 
       objectReference: {fileID: 4277892808802411785}
+    - target: {fileID: 425129527422377764, guid: 7b1ba3e1cbb2b41f8ba29549e04d2fb2,
+        type: 3}
+      propertyPath: CanvasForAllUIInGame
+      value: 
+      objectReference: {fileID: 5476671484491118857}
+    - target: {fileID: 1927673746424882195, guid: 7b1ba3e1cbb2b41f8ba29549e04d2fb2,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6375209534074488199, guid: 7b1ba3e1cbb2b41f8ba29549e04d2fb2,
         type: 3}
       propertyPath: m_Name
@@ -271,6 +281,12 @@ PrefabInstance:
       addedObject: {fileID: 1478573026389428089}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b1ba3e1cbb2b41f8ba29549e04d2fb2, type: 3}
+--- !u!223 &5476671484491118857 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1927673746424882195, guid: 7b1ba3e1cbb2b41f8ba29549e04d2fb2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6251403917903191322}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5572787286886234656 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1988328510979073850, guid: 7b1ba3e1cbb2b41f8ba29549e04d2fb2,

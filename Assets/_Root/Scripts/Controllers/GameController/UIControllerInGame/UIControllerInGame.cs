@@ -16,6 +16,7 @@ namespace KitchenChaosMVC.Engine.Game.UIController
 
         public UIControllerInGame(UIControllerModel uIControllerModel)
         {
+
             _uiControllerView = LoadView();
             _uiControllerModel = uIControllerModel;
 
@@ -33,8 +34,13 @@ namespace KitchenChaosMVC.Engine.Game.UIController
         private void CreateUIControllers()
         {
             _deliveryManagerController = new DeliveryManagerController(_uiControllerView.DeliveryManagerUI,_uiControllerModel.DeliveryManagerModel);
+            AddControllers(_deliveryManagerController);
+
             _countDownUIController = new CountDownUIController(_uiControllerView.CountDownUIView,_uiControllerModel.CountDownUIModel);
+            AddControllers(_countDownUIController);
+
             _gameOverUIController = new GameOverUIController(_uiControllerView.GameOverUIView,_uiControllerModel.GameOverUIModel);
+            AddControllers(_gameOverUIController);
         }
 
         protected override void OnDispose()
